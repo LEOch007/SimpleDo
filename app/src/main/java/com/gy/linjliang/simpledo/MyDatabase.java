@@ -68,11 +68,13 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     public void update(item i){
         SQLiteDatabase db=getWritableDatabase();
-        String whereClause="id like?";
+        String whereClause="id like ?";
         String[] whereArgs={i.getId()};
         ContentValues values=new ContentValues();
 
-        values.put("label",i.getLabel());values.put("content",i.getContent());
+        Log.d("123",i.getId());
+        values.put("content",i.getContent());
+        values.put("label",i.getLabel());
         values.put("startyear",i.getStartyear());values.put("startmonth",i.getStartmonth());
         values.put("startday",i.getStartday());values.put("finishyear",i.getFinishyear());
         values.put("finishmonth",i.getFinishmonth());values.put("finishday",i.getFinishday());

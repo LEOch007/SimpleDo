@@ -4,9 +4,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -30,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private Button Intro;
     private Button countdown;
 
+    private DrawerLayout mdrawerLayout;
+    private NavigationView navigationView;
+    private ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +64,20 @@ public class MainActivity extends AppCompatActivity {
         });
         show(myDatabase);
 
+        if(actionBar!=null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
+
+        }
+        navigationView.setCheckedItem(R.id.activityday);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mdrawerLayout.closeDrawers();
+                return true;
+            }
+        });
+
         Intro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +91,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i=new Intent(MainActivity.this,additem.class);
                 startActivityForResult(i,1);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final item temp_item=list.get(position);
+                Intent intent=new Intent(MainActivity.this,UpdateActivity.class);
+                intent.putExtra("item",temp_item);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -92,19 +124,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 dialog.show();
-                return false;
+                return true;
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final item temp_item=list.get(position);
-                Intent intent=new Intent(MainActivity.this,UpdateActivity.class);
-                intent.putExtra("item",temp_item);
-                startActivityForResult(intent,1);
-            }
-        });
+
     }
 
     //找到控件
@@ -115,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
         buttonadd=(Button)findViewById(R.id.buttonadd);
         Intro = (Button) findViewById(R.id.intro);
         countdown = (Button) findViewById(R.id.countdown);
+        mdrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        navigationView=(NavigationView)findViewById(R.id.nav_view);
+        actionBar=getSupportActionBar();
     }
 
     public void show(MyDatabase myDatabase){
