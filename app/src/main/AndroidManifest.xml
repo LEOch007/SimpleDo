@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Datetask"/>
+        <activity android:name=".Workclock"/>
         <activity android:name=".additem"/>
         <activity android:name=".UpdateActivity"/>
         <activity android:name=".startupView" />

@@ -62,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        working.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,Workclock.class);
+                startActivity(intent);
+            }
+        });
+
         show(myDatabase);
 
         if(actionBar!=null){
