@@ -19,6 +19,8 @@
         <activity android:name=".Datetask"/>
         <activity android:name=".additem"/>
         <activity android:name=".UpdateActivity"/>
+        <activity android:name=".startupView" />
+        <activity android:name=".countdown"></activity>
     </application>
 
 </manifest>

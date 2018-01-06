@@ -12,11 +12,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
+import android.content.Context;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import android.content.SharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
     private Button datetask; private Button working;
@@ -26,11 +27,26 @@ public class MainActivity extends AppCompatActivity {
     private List<Map<String,Object>> arrayList;
     private MyDatabase myDatabase=new MyDatabase(this,"Item.db",null,1);
     private List<item> list;
+    private Button Intro;
+    private Button countdown;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+
+        SharedPreferences sharePreferences = this.getSharedPreferences("guideActivity", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharePreferences.edit();
+
+        // todo 第一次启动
+//        if(sharePreferences.getBoolean("firstStart", true)){
+//            editor.putBoolean("firstStart",false);
+//            editor.commit();
+//            Intent intent = new Intent(MainActivity.this,startupview.class);
+//            startActivity(intent);
+//        }
+
         datetask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         show(myDatabase);
+
+        Intro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,startupView.class);
+                startActivity(intent);
+            }
+        });
 
         buttonadd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,13 +106,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     //找到控件
     public void init(){
         datetask = (Button)findViewById(R.id.datetask);
         working = (Button)findViewById(R.id.working);
         listView=(ListView) findViewById(R.id.list_item);
         buttonadd=(Button)findViewById(R.id.buttonadd);
+        Intro = (Button) findViewById(R.id.intro);
+        countdown = (Button) findViewById(R.id.countdown);
     }
+
     public void show(MyDatabase myDatabase){
         list=new ArrayList<item>();
         arrayList=new ArrayList<>();
@@ -133,5 +161,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+        Intro = (Button) findViewById(R.id.intro);
+        countdown = (Button) findViewById(R.id.countdown);
     }
 }

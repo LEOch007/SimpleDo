@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.CardView
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp"
+        >
+
+        <LinearLayout
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_marginBottom="5dp"
+                android:id="@+id/repoName_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="距离" />
+
+            <TextView
+                android:lines="1"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:ellipsize="end"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/language_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="完成安卓作业" />
+
+            <TextView
+                android:lines="1"
+                android:ellipsize="end"
+                android:id="@+id/description_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="还有" />
+        </LinearLayout>
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginEnd="50dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_width="100dp"
+            android:background="@color/light_blue"
+            android:layout_gravity="end"
+            android:text="15"
+            android:layout_height="match_parent"
+            >
+
+        </TextView>
+
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:text="天"
+            android:layout_width="50dp"
+            android:background="@drawable/blue_corner"
+            android:layout_gravity="end"
+            android:layout_height="match_parent"
+            >
+
+        </TextView>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
