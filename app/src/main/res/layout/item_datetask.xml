@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:elevation="4dp"
+    android:layout_marginBottom="18dp"
+    >
+    <LinearLayout
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="10月1日"
+            android:textSize="23sp"
+            android:layout_marginStart="6dp"
+            />
+
+        <TextView
+            android:id="@+id/datecont"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="复习数据库\n朗读VOA的英语文章\n一周足球"
+            android:textSize="17sp"
+            android:layout_marginStart="6dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/datenum"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:text="5"
+        android:textSize="54sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:background="@android:color/holo_orange_light"
+        />
+
+</LinearLayout>
