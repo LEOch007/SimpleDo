@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Datetask"/>
+        <activity android:name=".additem"/>
+        <activity android:name=".UpdateActivity"/>
     </application>
 
 </manifest>

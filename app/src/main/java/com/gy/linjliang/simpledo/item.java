@@ -55,5 +55,6 @@ public class item implements Serializable {
     public void setVideopath(String videopath) {this.videopath = videopath;}
 
     public String getId() {return id;}
+    public void setIsfinish(String isfinish){this.isfinish=isfinish;}
 }
 
