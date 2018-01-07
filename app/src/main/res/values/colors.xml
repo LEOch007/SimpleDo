@@ -157,4 +157,14 @@
     <color name="darkblue">#00008B</color><!--暗蓝色 -->
     <color name="navy">#000080</color><!--海军色 -->
     <color name="black">#000000</color><!--黑色 -->
+
+    <color name="block1">#F74747</color>
+    <color name="block2">#F0AAA0</color>
+    <color name="block3">#F6D76D</color>
+    <color name="block4">#F99406</color>
+    <color name="block5">#3EC382</color>
+    <color name="block6">#36D7B5</color>
+    <color name="block7">#82CFE3</color>
+    <color name="block8">#4183D7</color>
+    <color name="block9">#DEC6E0</color>
 </resources>

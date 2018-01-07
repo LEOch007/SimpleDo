@@ -1,50 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border"
-    android:elevation="4dp"
+    android:elevation="2dp"
     android:layout_marginBottom="18dp"
     >
-    <LinearLayout
-        android:layout_weight="4"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:orientation="vertical"
-        >
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp">
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="10月1日"
-            android:textSize="23sp"
-            android:layout_marginStart="6dp"
-            />
-
-        <TextView
-            android:id="@+id/datecont"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="270dp"
             android:layout_height="match_parent"
-            android:text="复习数据库\n朗读VOA的英语文章\n一周足球"
-            android:textSize="17sp"
-            android:layout_marginStart="6dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="10月1日"
+                android:textColor="@color/darkslategray"
+                android:textSize="23sp"
+                android:layout_marginStart="6dp"
+                />
+
+            <TextView
+                android:id="@+id/datecont"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="复习数据库\n朗读VOA的英语文章\n一周足球"
+                android:textSize="17sp"
+                android:layout_marginStart="6dp"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/datenum"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="5"
+            android:textSize="54sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_gravity="end"
+            android:background="@android:color/holo_orange_light"
             />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/datenum"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:text="5"
-        android:textSize="54sp"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:background="@android:color/holo_orange_light"
-        />
-
+    </android.support.v7.widget.CardView>
 </LinearLayout>
