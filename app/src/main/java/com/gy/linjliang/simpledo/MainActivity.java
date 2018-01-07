@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private MyDatabase myDatabase=new MyDatabase(this,"Item.db",null,1);
     private List<item> list;
     private Button Intro;
-    private Button countdown;
 
     private DrawerLayout mdrawerLayout;
     private NavigationView navigationView;
@@ -44,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
 
+        // 检测是否是第一次起得
         SharedPreferences sharePreferences = this.getSharedPreferences("guideActivity", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharePreferences.edit();
 
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
 
+        // 临时按钮
         datetask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,14 +70,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Intro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,startupView.class);
+                startActivity(intent);
+            }
+        });
+        buttonadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(MainActivity.this,additem.class);
+                startActivityForResult(i,1);
+            }
+        });
+        // -------------------------------------------------
 
         show(myDatabase);
 
+        // 菜单栏
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
 
         }
+
         navigationView.setCheckedItem(R.id.activityday);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -86,22 +104,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intro.setOnClickListener(new View.OnClickListener() {
+        navigationView.setCheckedItem(R.id.activityday);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,startupView.class);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mdrawerLayout.closeDrawers();
+                Intent intent = new Intent(MainActivity.this,countdown.class);
                 startActivity(intent);
+                return true;
             }
         });
+        // -------------------------------------------------
 
-        buttonadd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(MainActivity.this,additem.class);
-                startActivityForResult(i,1);
-            }
-        });
-
+        // 列表
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -135,8 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
+        // -------------------------------------------------
     }
 
     //找到控件
@@ -146,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
         listView=(ListView) findViewById(R.id.list_item);
         buttonadd=(Button)findViewById(R.id.buttonadd);
         Intro = (Button) findViewById(R.id.intro);
-        countdown = (Button) findViewById(R.id.countdown);
         mdrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
         navigationView=(NavigationView)findViewById(R.id.nav_view);
         actionBar=getSupportActionBar();
@@ -197,6 +210,5 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         Intro = (Button) findViewById(R.id.intro);
-        countdown = (Button) findViewById(R.id.countdown);
     }
 }

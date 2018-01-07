@@ -14,6 +14,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     private static final String DB_NAME="Item.db";
     private static final int DB_VERSION=1;
     private static final String TABLE_NAME="item";
+
     private static final String SQL_CREATE_TABLE="create table "+TABLE_NAME
             +"(id text not null primary key,"
             +"label text not null,"

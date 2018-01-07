@@ -16,12 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Datetask"/>
-        <activity android:name=".Workclock"/>
-        <activity android:name=".additem"/>
-        <activity android:name=".UpdateActivity"/>
+        <activity android:name=".Datetask" />
+        <activity android:name=".Workclock" />
+        <activity android:name=".additem" />
+        <activity android:name=".UpdateActivity" />
         <activity android:name=".startupView" />
-        <activity android:name=".countdown"></activity>
+        <activity android:name=".countdown" />
+        <activity android:name=".Summary"></activity>
     </application>
 
 </manifest>
