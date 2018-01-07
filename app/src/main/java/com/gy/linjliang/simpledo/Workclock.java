@@ -3,6 +3,7 @@ package com.gy.linjliang.simpledo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +20,26 @@ public class Workclock extends AppCompatActivity {
         setContentView(R.layout.activity_workclock);
         init();
         //设置时间
-        String lefttime = "01:30:06";
-        myclk.setText(lefttime);
+        myclk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DateChooseWheelViewDialog mDateChooseDialog = new DateChooseWheelViewDialog(Workclock.this, new DateChooseWheelViewDialog.DateChooseInterface(){
+                    @Override
+                    public void getDateTime(String time, boolean longTimeChecked) {
+                        String times[] = time.split(":");
+                        if(Integer.parseInt(times[0])/10==0){times[0] = "0"+times[0];}
+                        if(Integer.parseInt(times[1])/10==0){times[1] = "0"+times[1];}
+                        String clocktime = times[0]+":"+times[1]+":"+"00";
+                        myclk.setText(clocktime);
+                    }
+                });
+                mDateChooseDialog.setTimePickerGone(true);
+                mDateChooseDialog.setDateDialogTitle("倒计时长");
+                mDateChooseDialog.showDateChooseDialog();
+            }
+        });
         //取时间
+        String lefttime = myclk.getText().toString();
         String[] stime = lefttime.split(":");
         int sumsec = 0; //总秒数
         int weight[] = {3600,60,1}; //加权
@@ -47,10 +65,11 @@ public class Workclock extends AppCompatActivity {
                 Toast.makeText(Workclock.this,"不可思议",Toast.LENGTH_SHORT).show();
             }
         };
-        timer.start();
+        //timer.start();
     }
     //找到控件
     public void init(){
         myclk = (TextView)findViewById(R.id.myclk);
+
     }
 }
