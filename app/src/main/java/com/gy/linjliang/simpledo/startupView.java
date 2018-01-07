@@ -1,5 +1,7 @@
 package com.gy.linjliang.simpledo;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,7 @@ public class startupView extends AppCompatActivity {
     private ImageView mTwo_dot;
     private ImageView mThree_dot;
     private Button mBtn_next;
+    private MyDatabase myDatabase; // fixme 测试完成后删除
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,17 @@ public class startupView extends AppCompatActivity {
         mBtn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // todo 跳转到主界面
+                finish();
             }
         });
+
+        // 临时测试数据库// fixme 测试完成后删除
+        myDatabase = new MyDatabase(this,"Item.db",null,1);
+        myDatabase.insert(new item("10","1","这是一条测试数据1这是一条测试数据1这是一条测试数据1","2018","01","10","2018","1","11"));
+        myDatabase.insert(new item("11","1","这是一条测试数据2","2018","01","06","2018","1","11"));
+        myDatabase.insert(new item("12","1","这是一条测试数据3","2018","02","10","2018","2","11"));
+        myDatabase.insert(new item("13","1","这是一条测试数据3","2018","01","07","2018","2","11"));
+        myDatabase.insert(new item("14","1","这是一条测试数据3","2018","12","07","2018","2","11"));
     }
 
     private void moveDots() {

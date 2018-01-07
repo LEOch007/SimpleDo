@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,15 +44,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
 
-        // 检测是否是第一次起得
+        // 检测是否是第一次启动
         SharedPreferences sharePreferences = this.getSharedPreferences("guideActivity", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharePreferences.edit();
 
-        // todo 第一次启动
+        // todo 实际发布前注释即可
 //        if(sharePreferences.getBoolean("firstStart", true)){
 //            editor.putBoolean("firstStart",false);
 //            editor.commit();
-//            Intent intent = new Intent(MainActivity.this,startupview.class);
+//            Intent intent = new Intent(MainActivity.this,startupView.class);
 //            startActivity(intent);
 //        }
 
@@ -99,18 +100,24 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                Intent intent;
+                navigationView.setCheckedItem(id);
+                switch (id){
+                    case R.id.activityday:
+                        break;
+                    case R.id.activityCountdown:
+                        intent = new Intent(MainActivity.this,countdown.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activitySummary:
+                        intent = new Intent(MainActivity.this,Summary.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activitypotato:
+                        break;
+                }
                 mdrawerLayout.closeDrawers();
-                return true;
-            }
-        });
-
-        navigationView.setCheckedItem(R.id.activityday);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                mdrawerLayout.closeDrawers();
-                Intent intent = new Intent(MainActivity.this,countdown.class);
-                startActivity(intent);
                 return true;
             }
         });
@@ -210,5 +217,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         Intro = (Button) findViewById(R.id.intro);
+    }
+
+    @Override
+    protected void onRestart() {
+        navigationView.setCheckedItem(R.id.activityday);
+        super.onRestart();
     }
 }

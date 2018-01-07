@@ -1,27 +1,35 @@
 package com.gy.linjliang.simpledo;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
-import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class countdown extends AppCompatActivity {
     private MyAdapter adapter;
     private List<countdown_item> countdownList;
     private MyDatabase myDatabase;
+    private DrawerLayout mdrawerLayout;
+    private NavigationView navigationView;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,42 @@ public class countdown extends AppCompatActivity {
         // 界面控件
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.countdown_listview);
         final ProgressBar progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
+        mdrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        actionBar = getSupportActionBar();
+
+        // 菜单栏
+        if(actionBar!=null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
+        }
+
+        navigationView.setCheckedItem(R.id.activityCountdown);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                Intent intent;
+                navigationView.setCheckedItem(id);
+                switch (id){
+                    case R.id.activityday:
+                        break;
+                    case R.id.activityCountdown:
+                        intent = new Intent(countdown.this,countdown.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activitySummary:
+                        intent = new Intent(countdown.this,Summary.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activitypotato:
+                        break;
+                }
+                mdrawerLayout.closeDrawers();
+                return true;
+            }
+        });
+        // -------------------------------------------------
 
         // RecyclerView 相关设置
         countdownList = new ArrayList<>();
@@ -42,7 +86,7 @@ public class countdown extends AppCompatActivity {
         myDatabase = new MyDatabase(this,"Item.db",null,1);
         SQLiteDatabase db = myDatabase.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("select * from item order by startyear DESC,startmonth DESC,startday DESC",null);
+        Cursor cursor = db.rawQuery("select * from item order by startyear ASC,startmonth ASC,startday ASC",null);
 
         int contentIndex = cursor.getColumnIndex("content");
         int startyearIndex = cursor.getColumnIndex("startyear");
@@ -60,13 +104,13 @@ public class countdown extends AppCompatActivity {
             String startday = cursor.getString(startdayIndex);
             //
             Calendar date = Calendar.getInstance();
-            date.set(Integer.parseInt(startyear) + 1900,Integer.parseInt(startmonth),Integer.parseInt(startday));
+            date.set(Integer.parseInt(startyear),Integer.parseInt(startmonth) - 1,Integer.parseInt(startday));
 
             // 得微秒级时间差
             long val = date.getTimeInMillis() - Ctoday.getTimeInMillis();
 
             if(val < 0){
-                break;
+                continue;
             }
             // 换算后得到天数
             int day = (int) (val / (1000 * 60 * 60 * 24));
@@ -128,4 +172,9 @@ public class countdown extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        navigationView.setCheckedItem(R.id.activityCountdown);
+        super.onBackPressed();
+    }
 }
