@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.content.Context;
@@ -26,18 +27,17 @@ import java.util.Map;
 import android.content.SharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
-    private Button datetask; private Button working;
-    private Button buttonadd;
     private ListView listView;
     private SimpleAdapter simpleAdapter;
     private List<Map<String,Object>> arrayList;
-    private MyDatabase myDatabase=new MyDatabase(this,"Item.db",null,1);
+    private MyDatabase myDatabase=new MyDatabase(this,"Finalitem.db",null,1);
     private List<item> list;
-    private Button Intro;
 
     private DrawerLayout mdrawerLayout;
     private NavigationView navigationView;
     private ActionBar actionBar;
+    private Button buttonadd;
+    //private ImageView icon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,38 +56,17 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
 
-        // 临时按钮
-        datetask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Datetask.class);
-                startActivity(intent);
-            }
-        });
-        working.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Workclock.class);
-                startActivity(intent);
-            }
-        });
-        Intro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,startupView.class);
-                startActivity(intent);
-            }
-        });
+
+
+        show(myDatabase);
+
         buttonadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(MainActivity.this,additem.class);
                 startActivityForResult(i,1);
             }
-        });
-        // -------------------------------------------------
-
-        show(myDatabase);
+        });;
 
         // 菜单栏
         if(actionBar!=null){
@@ -162,21 +141,18 @@ public class MainActivity extends AppCompatActivity {
 
     //找到控件
     public void init(){
-        datetask = (Button)findViewById(R.id.datetask);
-        working = (Button)findViewById(R.id.working);
         listView=(ListView) findViewById(R.id.list_item);
-        buttonadd=(Button)findViewById(R.id.buttonadd);
-        Intro = (Button) findViewById(R.id.intro);
         mdrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
         navigationView=(NavigationView)findViewById(R.id.nav_view);
         actionBar=getSupportActionBar();
+        buttonadd=(Button)findViewById(R.id.buttonadd);
     }
 
     public void show(MyDatabase myDatabase){
         list=new ArrayList<item>();
         arrayList=new ArrayList<>();
-        simpleAdapter=new SimpleAdapter(this,arrayList,R.layout.item_detail,new String[]{"content","label"},
-                new int[]{R.id.textconent,R.id.textlabel});
+        simpleAdapter=new SimpleAdapter(this,arrayList,R.layout.item_detail,new String[]{"content","time","labeltype"},
+                new int[]{R.id.textconent,R.id.textlabel,R.id.itemicon});
         listView.setAdapter(simpleAdapter);
         SQLiteDatabase db=myDatabase.getWritableDatabase();
         Cursor cursor=db.query("item",null,null,null,null,null,null);
@@ -188,18 +164,35 @@ public class MainActivity extends AppCompatActivity {
                 String startyear=cursor.getString(cursor.getColumnIndex("startyear"));
                 String startmonth=cursor.getString(cursor.getColumnIndex("startmonth"));
                 String startday=cursor.getString(cursor.getColumnIndex("startday"));
+                String starthour=cursor.getString(cursor.getColumnIndex("starthour"));
+                String startmin=cursor.getString(cursor.getColumnIndex("startmin"));
                 String finishyear=cursor.getString(cursor.getColumnIndex("finishyear"));
                 String finishmonth=cursor.getString(cursor.getColumnIndex("finishmonth"));
                 String finishday=cursor.getString(cursor.getColumnIndex("finishday"));
+                String finishhour=cursor.getString(cursor.getColumnIndex("finishhour"));
+                String finishmin=cursor.getString(cursor.getColumnIndex("finishmin"));
                 String isfinish=cursor.getString(cursor.getColumnIndex("isfinish"));
                 String imagepath=cursor.getString(cursor.getColumnIndex("imgpath"));
                 String videopath=cursor.getString(cursor.getColumnIndex("videopath"));
-
+                String icontype="";
+                switch(label){
+                    case "working":
+                        icontype="W";
+                        break;
+                    case "studying":
+                        icontype="S";
+                        break;
+                    case "living":
+                        icontype="L";
+                        break;
+                }
                 Map<String,Object> temp=new LinkedHashMap<>();
                 temp.put("content",content);
-                temp.put("label",label);
+                temp.put("time",finishyear+"-"+finishmonth+"-"+finishday+" "+finishhour+"时: "+finishmin+"分");
+                temp.put("labeltype",icontype);
                 arrayList.add(temp);
-                item temp_item=new item(id,label,content,startyear,startmonth,startday,finishyear,finishmonth,finishday);
+                item temp_item=new item(id,label,content,startyear,startmonth,startday,starthour,startmin,
+                        finishyear,finishmonth,finishday,finishhour,finishmin);
                 temp_item.setImgpath(imagepath);temp_item.setVideopath(videopath);temp_item.setIsfinish(isfinish);
                 list.add(temp_item);
             }while(cursor.moveToNext());
@@ -216,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-        Intro = (Button) findViewById(R.id.intro);
     }
 
     @Override
