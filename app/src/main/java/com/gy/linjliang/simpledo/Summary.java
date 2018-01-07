@@ -1,5 +1,7 @@
 package com.gy.linjliang.simpledo;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Summary extends AppCompatActivity {
 
@@ -34,6 +39,7 @@ public class Summary extends AppCompatActivity {
     private String[] actual_text1;
     private String[] actual_text2;
     private String[] actual_text3;
+    private MyDatabase myDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,34 +47,123 @@ public class Summary extends AppCompatActivity {
         setContentView(R.layout.summary);
         initView();
         initData();
+        myDatabase = new MyDatabase(this,"Item.db",null,1);
+        SQLiteDatabase db = myDatabase.getReadableDatabase();
+        Cursor cursor;
+        String finalContent = "";
+        Map<String,DateStatics> dateMap = new HashMap<>();
 
+        cursor = db.rawQuery("select * from item",null);
+        for (cursor.moveToFirst();!(cursor.isAfterLast());cursor.moveToNext()) {
+            String content = cursor.getString(cursor.getColumnIndex("content"));
+            String startyear = cursor.getString(cursor.getColumnIndex("startyear"));
+            String startmonth = cursor.getString(cursor.getColumnIndex("startmonth"));
+            String startday = cursor.getString(cursor.getColumnIndex("startday"));
+            String isfinish = cursor.getString(cursor.getColumnIndex("isfinish"));
+
+            String date = startyear + "-" + startmonth + "-" +  startday;
+            DateStatics info = new DateStatics();
+            if(dateMap.containsKey(date)){
+                DateStatics old_info = dateMap.get(date);
+                if(isfinish == "0"){
+                    old_info.undoAddOne();
+                }else {
+                    old_info.finishedAddOne();
+                }
+                dateMap.put(date,old_info);
+            }
+            else {
+                if(isfinish == "0"){
+                    info.undoAddOne();
+                }else {
+                    info.finishedAddOne();
+                }
+
+                dateMap.put(date,info);
+            }
+        }
+
+        int maxFinishCnt = 0;
+        int maxUndoCnt = 0;
+        int maxCnt = 0;
+        int allUndoCnt = 0;
+        int allCnt = 0;
+        String maxFinishDate = "";
+        String maxUndoDate = "";
+        int dateCnt = 0;
+
+        for (Map.Entry<String, DateStatics> entry : dateMap.entrySet()) {
+            dateCnt++;
+            DateStatics info = entry.getValue();
+            if(info.getCount() > maxCnt){
+                maxCnt = info.getCount();
+            }
+            if(info.getCount() > maxFinishCnt){
+                maxFinishCnt = info.getFinishedCnt();
+                maxFinishDate = entry.getKey();
+            }
+            if(info.getCount() > maxUndoCnt){
+                maxUndoCnt = info.getUndoCnt();
+                maxUndoDate = entry.getKey();
+            }
+            allUndoCnt += info.getUndoCnt();
+            allCnt += info.getCount();
+        }
+
+        cursor = db.rawQuery("select content from item order by startyear DESC,startmonth DESC,startday DESC limit 1",null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()){
+            finalContent = cursor.getString(cursor.getColumnIndex("content"));
+        }
 
         String sample_text1 = "2018这一年\n" +
-                "有189天你都在SimpleDo上努力完成任务";
+                "有" + String.valueOf(dateCnt) + "天你都在SimpleDo上努力完成任务";
+
+
         String sample_text2 = "这一年里\n" +
-                "你一共完成了99个任务\n" +
-                "很可惜的是，有3个任务没有完成";
-        String sample_text3_1 = "这一年里\n" +
+                "你一共完成了" + String.valueOf(allCnt - allUndoCnt) + "个任务\n" +
+                "很可惜的是，有" + String.valueOf(allUndoCnt) + "个任务没有完成";
+
+        if(allUndoCnt == 0){
+            sample_text2 = "这一年里\n" +
+                    "你一共完成了" + String.valueOf(allCnt - allUndoCnt) + "个任务\n";
+        }
+
+        String sample_text3 = "这一年里\n" +
                 "你每天都在晚上十点前完成了任务\n" +
                 "很棒哦";
-        String sample_text3_2 = "1月12号大概是比较辛苦的一天\n" +
+
+        sample_text3 = "1月12号大概是比较辛苦的一天\n" +
                 "这一天你在 3 : 08 分完成了任务\n" +
                 "带着疲惫感和满足感开始入睡";
-        String sample_text4_1 = "在整一年中\n" +
+
+        String sample_text4 = "在整一年中\n" +
                 "你没有一件任务没有完成\n" +
                 "简直棒呆！";
-        String sample_text4_2 = "10月3号，\n" +
-                "可能是你悄悄偷懒的一天，\n" +
-                "这一天，你有3件任务没有完成";
+
+        if(allUndoCnt == 0){
+            sample_text4 = "10月3号，\n" +
+                    "可能是你悄悄偷懒的一天，\n" +
+                    "这一天，你有" + String.valueOf(maxUndoCnt) + "件任务没有完成";
+        }
+
+        String sample_text5 = "10月4号\n" +
+                "这一天你效率超高\n" +
+                "完成了" + String.valueOf(maxFinishCnt) + "个任务";
+
+        String sample_text6 = "你今年的最后一个任务是\n" +
+                finalContent +
+                "\n新年快乐~";
+
         String sample_text7 = "愿你的锦绣年华\n" +
                 "在SimpleDo的陪伴下\n" +
                 "越来越好~";
         String sample_text_empty = "";
-        actual_text1 = new String[]{sample_text1,sample_text2,sample_text3_2};
-        actual_text2 = new String[]{sample_text4_1,sample_text4_2,sample_text1};
+
+        actual_text1 = new String[]{sample_text1,sample_text2,sample_text3};
+        actual_text2 = new String[]{sample_text4,sample_text5,sample_text6};
         actual_text3 = new String[]{sample_text7,sample_text_empty,sample_text_empty};
 
-        Log.d("asize",String.valueOf(actual_text1.length));
         mIn_vp.setAdapter(new ViewPagerAdapter(mViewList));
         addDots();
         moveDots();
@@ -139,8 +234,6 @@ public class Summary extends AppCompatActivity {
                 if(position != 2 && mBtn_next.getVisibility() == View.VISIBLE){
                     mBtn_next.setVisibility(View.GONE);
                 }
-
-
             }
 
             @Override
