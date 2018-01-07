@@ -67,7 +67,7 @@ public class Madapter extends RecyclerView.Adapter<Madapter.ViewHolder>{
                 holder.isfinish.setImageResource(R.mipmap.clock_icon);
                 break;
             case "1":
-                holder.isfinish.setImageResource(R.mipmap.ic_launcher_round);
+                holder.isfinish.setImageResource(R.mipmap.tablefinish);
                 break;
         }
 

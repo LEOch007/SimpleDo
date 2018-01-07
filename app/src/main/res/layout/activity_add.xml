@@ -2,29 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@mipmap/bianqian"
     >
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:layout_marginLeft="80dp"
         >
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="选择标签:"
+            android:text="标签:"
             android:textColor="@android:color/background_dark"
-            android:textSize="20dp"
-            android:paddingLeft="10sp"
+            android:textSize="15dp"
+            android:layout_marginTop="60dp"
             />
 
         <RadioGroup
             android:id="@+id/radiolabel"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="150dp"
+            android:layout_marginTop="60dp"
+            >
 
             <RadioButton
                 android:id="@+id/labelworking"
@@ -32,7 +34,9 @@
                 android:layout_height="50dp"
                 android:checked="true"
                 android:gravity="center"
-                android:text="working" />
+                android:text="working"
+                android:textSize="15dp"
+                />
 
             <RadioButton
                 android:id="@+id/labelstudying"
@@ -51,82 +55,89 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        >
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:gravity="center"
-            android:paddingLeft="10dp"
-            android:text="填写内容:"
+            android:text="内容:"
             android:textColor="@android:color/background_dark"
-            android:textSize="20dp" />
+            android:textSize="15dp"
+            android:layout_marginLeft="60dp"
+            />
 
         <EditText
             android:id="@+id/editcontnet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="470px" />
+            android:width="300px" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="75dp"
+        android:orientation="vertical">
+
         <TextView
+            android:id="@+id/starttime"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:text="开始日期:"
             android:textColor="@android:color/background_dark"
-            android:textSize="20dp"
-            android:id="@+id/starttime"
-            />
+            android:textSize="15dp" />
+
         <TextView
+            android:id="@+id/starttimeshow"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:text=""
-            android:textSize="20dp"
-            android:id="@+id/starttimeshow"
-            />
+            android:textSize="15dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:orientation="vertical">
+
         <TextView
+            android:id="@+id/finishtime"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:text="结束日期:"
             android:textColor="@android:color/background_dark"
-            android:textSize="20dp"
-            android:id="@+id/finishtime"
-            />
+            android:textSize="15dp" />
 
         <TextView
+            android:id="@+id/finishtimeshow"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:text=""
-            android:textSize="20dp"
-            android:id="@+id/finishtimeshow"
+            android:textSize="15dp" />
+        <ImageButton
+            android:id="@+id/buttonsubmit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/pen"
             />
     </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="submit"
-        android:id="@+id/buttonsubmit"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="80dp"
-        android:width="200dp"
-        />
+
+
+
 
 </LinearLayout>

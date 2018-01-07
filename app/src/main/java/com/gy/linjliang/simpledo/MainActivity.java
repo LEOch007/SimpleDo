@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -38,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mdrawerLayout;
     private NavigationView navigationView;
     private ActionBar actionBar;
-    private Button buttonadd;
+    private ImageButton buttonadd;
     private Madapter madapter;
     private RecyclerView recyclerView;
-    //private ImageView icon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,40 +112,7 @@ public class MainActivity extends AppCompatActivity {
         // -------------------------------------------------
 
         // 列表
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final item temp_item=list.get(position);
-                Intent intent=new Intent(MainActivity.this,UpdateActivity.class);
-                intent.putExtra("item",temp_item);
-                startActivityForResult(intent,1);
-            }
-        });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final item temp_item=list.get(position);
-                AlertDialog.Builder dialog=new AlertDialog.Builder(MainActivity.this);
-                dialog.setMessage("shifoushanchu");
-                dialog.setNegativeButton("no", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        myDatabase.deleteByid(temp_item.id);
-                        show(myDatabase);
-                    }
-                });
-                dialog.show();
-                return true;
-            }
-        });
-        */
         // -------------------------------------------------
     }
 
@@ -154,16 +122,14 @@ public class MainActivity extends AppCompatActivity {
         mdrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
         navigationView=(NavigationView)findViewById(R.id.nav_view);
         actionBar=getSupportActionBar();
-        buttonadd=(Button)findViewById(R.id.buttonadd);
+        buttonadd=(ImageButton) findViewById(R.id.buttonaddone);
         recyclerView=(RecyclerView)findViewById(R.id.recyclerview);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-    public void show(MyDatabase myDatabase){
+    public void show(final MyDatabase myDatabase){
         list=new ArrayList<item>();
-        /*arrayList=new ArrayList<>();
-        simpleAdapter=new SimpleAdapter(this,arrayList,R.layout.item_detail,new String[]{"content","time","labeltype"},
-                new int[]{R.id.textconent,R.id.textlabel,R.id.itemicon});
-        listView.setAdapter(simpleAdapter);*/
         SQLiteDatabase db=myDatabase.getWritableDatabase();
         Cursor cursor=db.query("item",null,null,null,null,null,null);
         if(cursor.moveToFirst()){
@@ -184,23 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 String isfinish=cursor.getString(cursor.getColumnIndex("isfinish"));
                 String imagepath=cursor.getString(cursor.getColumnIndex("imgpath"));
                 String videopath=cursor.getString(cursor.getColumnIndex("videopath"));
-                String icontype="";
-                /*switch(label){
-                    case "working":
-                        icontype="W";
-                        break;
-                    case "studying":
-                        icontype="S";
-                        break;
-                    case "living":
-                        icontype="L";
-                        break;
-                }
-                Map<String,Object> temp=new LinkedHashMap<>();
-                temp.put("content",content);
-                temp.put("time",finishyear+"-"+finishmonth+"-"+finishday+" "+finishhour+"时: "+finishmin+"分");
-                temp.put("labeltype",icontype);
-                //arrayList.add(temp);*/
+
                 item temp_item=new item(id,label,content,startyear,startmonth,startday,starthour,startmin,
                         finishyear,finishmonth,finishday,finishhour,finishmin);
                 temp_item.setImgpath(imagepath);temp_item.setVideopath(videopath);temp_item.setIsfinish(isfinish);
@@ -208,11 +158,39 @@ public class MainActivity extends AppCompatActivity {
             }while(cursor.moveToNext());
 
         }
-
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
         madapter=new Madapter(list);
         recyclerView.setAdapter(madapter);
+        madapter.setOnitemClickListener(new Madapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                final item temp_item=list.get(position);
+                Intent intent=new Intent(MainActivity.this,UpdateActivity.class);
+                intent.putExtra("item",temp_item);
+                startActivityForResult(intent,1);
+            }
+
+            @Override
+            public void onLongClick(final int postion) {
+                final item temp_item=list.get(postion);
+                AlertDialog.Builder dialog=new AlertDialog.Builder(MainActivity.this);
+                dialog.setMessage("是否删除");
+                dialog.setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        myDatabase.deleteByid(temp_item.id);
+                        list.remove(postion);
+                        show(myDatabase);
+                    }
+                });
+                dialog.show();
+            }
+        });
     }
 
     @Override

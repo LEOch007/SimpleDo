@@ -11,6 +11,7 @@
             android:layout_height="70dp"
             android:id="@+id/itemicon"
             android:src="@mipmap/ic_launcher"
+            android:padding="15px"
             />
 
         <LinearLayout
@@ -52,7 +53,6 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/cycle"
                     android:src="@mipmap/clock_icon" />
 
 

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ import android.widget.Toast;
 
 public class additem extends Activity {
     private RadioGroup radioGroup;
-    private Button buttonsubmit;
+    private ImageButton buttonsubmit;
     private EditText exitcontent;
     String id;
     String label="working";
@@ -50,7 +51,7 @@ public class additem extends Activity {
         setContentView(R.layout.activity_add);
 
         radioGroup=(RadioGroup) findViewById(R.id.radiolabel);
-        buttonsubmit=(Button)findViewById(R.id.buttonsubmit);
+        buttonsubmit=(ImageButton) findViewById(R.id.buttonsubmit);
         exitcontent=(EditText) findViewById(R.id.editcontnet);
         mydb=new MyDatabase(this,"Finalitem.db",null,1);
         starttime=(TextView) findViewById(R.id.starttime);

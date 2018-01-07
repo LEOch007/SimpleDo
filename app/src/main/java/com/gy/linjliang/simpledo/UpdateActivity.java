@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class UpdateActivity extends Activity {
     private TextView finishtime;
     private TextView starttiemshow;
     private TextView finishtimeshow;
+    private ImageView finishicon;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class UpdateActivity extends Activity {
         starttiemshow=(TextView)findViewById(R.id.updatestarttimeshow);
         finishtime=(TextView)findViewById(R.id.updatefinishtime);
         finishtimeshow=(TextView)findViewById(R.id.updatefinishtimeshow);
+        finishicon=(ImageView) findViewById(R.id.finishicon);
 
 
         switch(label){
@@ -88,8 +91,26 @@ public class UpdateActivity extends Activity {
         starttiemshow.setText(startyear+"-"+startmonth+"-"+startday+" "+starthour+"时:"+startmin+"分");
         finishtimeshow.setText(finishyear+"-"+finishmonth+"-"+finishday+" "+finishhour+"时:"+finishmin+"分");
 
+        if(isfinish.equals("0")){
+            //Toast.makeText(UpdateActivity.this,isfinish,Toast.LENGTH_SHORT).show();
+            finishicon.setImageResource(R.mipmap.finish1);
+        }else{
+            //Toast.makeText(UpdateActivity.this,isfinish,Toast.LENGTH_SHORT).show();
+            finishicon.setImageResource(R.mipmap.finish2);
+        }
 
-
+        finishicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isfinish.equals("0")){
+                    isfinish="1";
+                    finishicon.setImageResource(R.mipmap.finish2);
+                }else{
+                    isfinish="0";
+                    finishicon.setImageResource(R.mipmap.finish1);
+                }
+            }
+        });
 
 
         starttime.setOnClickListener(new View.OnClickListener() {
@@ -149,14 +170,14 @@ public class UpdateActivity extends Activity {
                         String s1[]=timestart.split(" ");
                         String s2[]=s1[0].split("-");
                         startyear=s2[0];
-                        if(Integer.parseInt(s2[1])/10==0){startmonth="0"+s2[1];}else{startmonth=s2[1];}
-                        if(Integer.parseInt(s2[2])/10==0){startday="0"+s2[2];}else{startday=s2[2];}
+                        if(s2[1].length()<2){startmonth="0"+s2[1];}else{startmonth=s2[1];}
+                        if(s2[2].length()<2){startday="0"+s2[2];}else{startday=s2[2];}
 
                         String s3[]=s1[1].split(":");
                         String s4=s3[0].substring(0,s3[0].length()-1);
                         String s5=s3[1].substring(0,s3[1].length()-1);
-                        if(Integer.parseInt(s4)/10==0){starthour="0"+s4;}else{starthour=s4;}
-                        if(Integer.parseInt(s5)/10==0){startmin="0"+s5;}else{startmin=s5;}
+                        if(s4.length()<2){starthour="0"+s4;}else{starthour=s4;}
+                        if(s5.length()<2){startmin="0"+s5;}else{startmin=s5;}
 
                     }
                     if(timefinish.equals("")){
@@ -167,14 +188,14 @@ public class UpdateActivity extends Activity {
                         String s11[]=timefinish.split(" ");
                         String s22[]=s11[0].split("-");
                         finishyear=s22[0];
-                        if(Integer.parseInt(s22[1])/10==0){finishmonth="0"+s22[1];}else{finishmonth=s22[1];}
-                        if(Integer.parseInt(s22[2])/10==0){finishday="0"+s22[2];}else{finishday=s22[2];}
+                        if(s22[1].length()<2){finishmonth="0"+s22[1];}else{finishmonth=s22[1];}
+                        if(s22[2].length()<2){finishday="0"+s22[2];}else{finishday=s22[2];}
 
                         String s33[]=s11[1].split(":");
                         String s44=s33[0].substring(0,s33[0].length()-1);
                         String s55=s33[1].substring(0,s33[1].length()-1);
-                        if(Integer.parseInt(s44)/10==0){finishhour="0"+s44;}else{finishhour=s44;}
-                        if(Integer.parseInt(s55)/10==0){finishmin="0"+s55;}else{finishmin=s55;}
+                        if(s44.length()<2){finishhour="0"+s44;}else{finishhour=s44;}
+                        if(s55.length()<2){finishmin="0"+s55;}else{finishmin=s55;}
                         //Toast.makeText(additem.this,finishyear+" "+finishmonth+" "+finishday+" "+finishhour+" "+finishmin,Toast.LENGTH_SHORT).show();
 
                     }
