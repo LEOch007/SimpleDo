@@ -9,61 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/datetask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="datetask"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                />
 
-            <Button
-                android:id="@+id/working"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="working"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="8dp"
-                />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerview"
+            android:layout_marginTop="50dp"
+            >
 
-            <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/list_item"
-                android:layout_marginTop="100dp"
-                >
+        </android.support.v7.widget.RecyclerView>
 
-            </ListView>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="add"
-                android:id="@+id/buttonadd"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="200dp"
-                />
-
-            <Button
-                android:id="@+id/intro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="intro"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="50dp"
-
-                 />
-
-            <Button
-                android:id="@+id/countdown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="countdown"
-                android:layout_marginLeft="300dp"
-
-                android:layout_marginTop="8dp"
-                />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add"
+            android:id="@+id/buttonadd"
+            android:layout_marginLeft="280dp"
+            android:layout_marginBottom="10dp"
+            />
 
 
     </FrameLayout>

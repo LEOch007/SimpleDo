@@ -11,7 +11,7 @@ import android.util.Log;
  */
 
 public class MyDatabase extends SQLiteOpenHelper {
-    private static final String DB_NAME="Item.db";
+    private static final String DB_NAME="Finalitem.db";
     private static final int DB_VERSION=1;
     private static final String TABLE_NAME="item";
 
@@ -22,9 +22,13 @@ public class MyDatabase extends SQLiteOpenHelper {
             +"startyear text not null,"
             +"startmonth text not null,"
             +"startday text not null,"
+            +"starthour text not null,"
+            +"startmin text not null,"
             +"finishyear text not null,"
             +"finishmonth text not null,"
             +"finishday text not null,"
+            +"finishhour text not null,"
+            +"finishmin text not null,"
             +"isfinish text,"
             +"imgpath text,"
             +"videopath text);";
@@ -54,9 +58,10 @@ public class MyDatabase extends SQLiteOpenHelper {
         values.put("finishmonth",i.getFinishmonth());values.put("finishday",i.getFinishday());
         values.put("isfinish",i.getIsfinish());values.put("imgpath",i.getImgpath());
         values.put("videopath",i.getVideopath());
-
+        values.put("starthour",i.getStarthour());values.put("startmin",i.getStartmin());
+        values.put("finishhour",i.getFinishhour());values.put("finishmin",i.getFinishmin());
         db.insert(TABLE_NAME,null,values);
-        Log.d("123","hhh");
+        //Log.d("123","hhh");
         db.close();
     }
 
@@ -73,7 +78,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         String[] whereArgs={i.getId()};
         ContentValues values=new ContentValues();
 
-        Log.d("123",i.getId());
+        //Log.d("123",i.getId());
         values.put("content",i.getContent());
         values.put("label",i.getLabel());
         values.put("startyear",i.getStartyear());values.put("startmonth",i.getStartmonth());
@@ -81,6 +86,9 @@ public class MyDatabase extends SQLiteOpenHelper {
         values.put("finishmonth",i.getFinishmonth());values.put("finishday",i.getFinishday());
         values.put("isfinish",i.getIsfinish());values.put("imgpath",i.getImgpath());
         values.put("videopath",i.getVideopath());
+        values.put("starthour",i.getStarthour());values.put("startmin",i.getStartmin());
+        values.put("finishhour",i.getFinishhour());values.put("finishmin",i.getFinishmin());
+
         db.update(TABLE_NAME,values,whereClause,whereArgs);
         db.close();
     }

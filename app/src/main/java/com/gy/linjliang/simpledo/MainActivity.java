@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBar actionBar;
     private Button buttonadd;
+    private Madapter madapter;
+    private RecyclerView recyclerView;
     //private ImageView icon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 navigationView.setCheckedItem(id);
                 switch (id){
                     case R.id.activityday:
+                        intent = new Intent(MainActivity.this,Datetask.class);
+                        startActivity(intent);
                         break;
                     case R.id.activityCountdown:
                         intent = new Intent(MainActivity.this,countdown.class);
@@ -94,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.activitypotato:
+                        intent = new Intent(MainActivity.this,Workclock.class);
+                        startActivity(intent);
                         break;
                 }
                 mdrawerLayout.closeDrawers();
@@ -103,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         // -------------------------------------------------
 
         // 列表
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final item temp_item=list.get(position);
@@ -136,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        */
         // -------------------------------------------------
     }
 
@@ -146,14 +155,15 @@ public class MainActivity extends AppCompatActivity {
         navigationView=(NavigationView)findViewById(R.id.nav_view);
         actionBar=getSupportActionBar();
         buttonadd=(Button)findViewById(R.id.buttonadd);
+        recyclerView=(RecyclerView)findViewById(R.id.recyclerview);
     }
 
     public void show(MyDatabase myDatabase){
         list=new ArrayList<item>();
-        arrayList=new ArrayList<>();
+        /*arrayList=new ArrayList<>();
         simpleAdapter=new SimpleAdapter(this,arrayList,R.layout.item_detail,new String[]{"content","time","labeltype"},
                 new int[]{R.id.textconent,R.id.textlabel,R.id.itemicon});
-        listView.setAdapter(simpleAdapter);
+        listView.setAdapter(simpleAdapter);*/
         SQLiteDatabase db=myDatabase.getWritableDatabase();
         Cursor cursor=db.query("item",null,null,null,null,null,null);
         if(cursor.moveToFirst()){
@@ -175,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 String imagepath=cursor.getString(cursor.getColumnIndex("imgpath"));
                 String videopath=cursor.getString(cursor.getColumnIndex("videopath"));
                 String icontype="";
-                switch(label){
+                /*switch(label){
                     case "working":
                         icontype="W";
                         break;
@@ -190,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 temp.put("content",content);
                 temp.put("time",finishyear+"-"+finishmonth+"-"+finishday+" "+finishhour+"时: "+finishmin+"分");
                 temp.put("labeltype",icontype);
-                arrayList.add(temp);
+                //arrayList.add(temp);*/
                 item temp_item=new item(id,label,content,startyear,startmonth,startday,starthour,startmin,
                         finishyear,finishmonth,finishday,finishhour,finishmin);
                 temp_item.setImgpath(imagepath);temp_item.setVideopath(videopath);temp_item.setIsfinish(isfinish);
@@ -198,6 +208,11 @@ public class MainActivity extends AppCompatActivity {
             }while(cursor.moveToNext());
 
         }
+
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        madapter=new Madapter(list);
+        recyclerView.setAdapter(madapter);
     }
 
     @Override

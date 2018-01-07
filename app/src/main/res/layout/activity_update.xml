@@ -5,64 +5,131 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="label"
-            android:layout_marginTop="20px"
-            android:layout_marginLeft="20px"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="选择标签:"
+            android:textColor="@android:color/background_dark"
             android:textSize="20dp"
+            android:paddingLeft="10sp"
             />
 
         <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:id="@+id/updatelabel"
+            android:orientation="horizontal"
             >
 
             <RadioButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:id="@+id/updatelabelworking"
                 android:text="working"
                 android:checked="true"
+                android:gravity="center"
                 />
             <RadioButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:id="@+id/updatelabelstudying"
                 android:text="studying"
+                android:gravity="center"
                 />
             <RadioButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:id="@+id/updatelabelliving"
                 android:text="living"
+                android:gravity="center"
                 />
         </RadioGroup>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="content"
-            />
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="填写内容:"
+            android:textColor="@android:color/background_dark"
+            android:textSize="20dp" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="200px"
+            android:width="470px"
             android:id="@+id/updatecontnet"
             />
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="开始日期:"
+            android:textColor="@android:color/background_dark"
+            android:textSize="20dp"
+            android:id="@+id/updatestarttime"
+            />
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text=""
+            android:textSize="20dp"
+            android:id="@+id/updatestarttimeshow"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="结束日期:"
+            android:textColor="@android:color/background_dark"
+            android:textSize="20dp"
+            android:id="@+id/updatefinishtime"
+            />
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text=""
+            android:textSize="20dp"
+            android:id="@+id/updatefinishtimeshow"
+            />
+    </LinearLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="update"
         android:id="@+id/updatesubmit"
+        android:width="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="80dp"
         />
 
 </LinearLayout>
