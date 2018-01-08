@@ -66,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences.Editor editor = sharePreferences.edit();
 
         // todo 实际发布前注释即可
-//        if(sharePreferences.getBoolean("firstStart", true)){
-//            editor.putBoolean("firstStart",false);
-//            editor.commit();
-//            Intent intent = new Intent(MainActivity.this,startupView.class);
-//            startActivity(intent);
-//        }
+        if(sharePreferences.getBoolean("firstStart", true)){
+            editor.putBoolean("firstStart",false);
+            editor.commit();
+            Intent intent = new Intent(MainActivity.this,startupView.class);
+            startActivity(intent);
+        }
 
         //data();
 
@@ -229,12 +229,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onRestart() {
-        navigationView.setCheckedItem(R.id.activityday);
-        super.onRestart();
-    }
-
     public void data(){
         final String temp_i=(String) getIntent().getSerializableExtra("date");
         if(temp_i==null){
@@ -256,4 +250,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        show(myDatabase);
+        navigationView.setCheckedItem(R.id.activityMain);
+        super.onResume();
+    }
+
 }

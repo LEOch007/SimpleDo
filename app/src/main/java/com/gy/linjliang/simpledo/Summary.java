@@ -70,11 +70,13 @@ public class Summary extends AppCompatActivity {
         }
 
         myDatabase = new MyDatabase(this,"Finalitem.db",null,1);
-        myDatabase.insert(new item("100","1","完成数据库作业","2018","01","08","08","02","2018","01","11","09","02","0"));
-        myDatabase.insert(new item("101","1","完成互联网作业","2018","01","09","08","02","2018","01","11","09","02","0"));
-        myDatabase.insert(new item("102","1","完成云计算作业","2018","01","07","08","02","2018","01","11","09","02","0"));
-        myDatabase.insert(new item("103","1","完成人工智能作业","2018","01","10","08","02","2018","01","11","22","55","1"));
-        myDatabase.insert(new item("104","1","完成安卓作业","2018","01","10","08","02","2018","01","11","04","02","1"));
+        myDatabase.insert(new item("100","学习","完成数据库作业","2018","01","08","08","02","2018","01","11","09","02","0"));
+        myDatabase.insert(new item("101","学习","完成互联网作业","2018","01","09","08","02","2018","01","11","09","02","0"));
+        myDatabase.insert(new item("102","学习","完成云计算作业","2018","01","07","08","02","2018","01","11","09","02","0"));
+        myDatabase.insert(new item("103","学习","完成人工智能作业","2018","01","10","08","02","2018","01","11","22","55","1"));
+        myDatabase.insert(new item("104","学习","完成安卓作业","2018","01","10","08","02","2018","01","11","04","02","1"));
+        myDatabase.insert(new item("105","工作","实习","2018","01","08","08","02","2018","01","11","09","02","0"));
+        myDatabase.insert(new item("106","生活","购买洗衣粉","2018","01","08","08","02","2018","01","11","09","02","0"));
 
         SQLiteDatabase db = myDatabase.getReadableDatabase();
         Cursor cursor;
@@ -224,6 +226,7 @@ public class Summary extends AppCompatActivity {
 
         mIn_vp.setAdapter(new ViewPagerAdapter(mViewList));
         addDots();
+        setClickListener();
         moveDots();
         mIn_vp.setPageTransformer(true,new DepthPageTransformer());
 

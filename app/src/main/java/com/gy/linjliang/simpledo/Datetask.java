@@ -167,4 +167,16 @@ public class Datetask extends AppCompatActivity {
         list.clear();
         list.addAll(newList);
     }
+
+    @Override
+    protected void onResume() {
+        navigationView.setCheckedItem(R.id.activityday);
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        navigationView.setCheckedItem(R.id.activityday);
+        super.onRestart();
+    }
 }

@@ -21,8 +21,8 @@
         <activity android:name=".additem" />
         <activity android:name=".UpdateActivity" />
         <activity android:name=".startupView" />
-        <activity android:name=".countdown" />
-        <activity android:name=".Summary"></activity>
+        <activity android:name=".countdown" android:launchMode="singleTask"/>
+        <activity android:name=".Summary" android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

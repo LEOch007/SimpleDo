@@ -197,4 +197,15 @@ public class countdown extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        navigationView.setCheckedItem(R.id.activityCountdown);
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        navigationView.setCheckedItem(R.id.activityCountdown);
+        super.onRestart();
+    }
 }

@@ -37,6 +37,7 @@ public class startupView extends AppCompatActivity {
         initData();
         mIn_vp.setAdapter(new ViewPagerAdapter(mViewList));
         addDots();
+        setClickListener();
         moveDots();
         mIn_vp.setPageTransformer(true,new DepthPageTransformer());
 
@@ -46,6 +47,39 @@ public class startupView extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+    private void initView() {
+        mIn_vp = (ViewPager) findViewById(R.id.in_viewpager);
+        mIn_ll = (LinearLayout) findViewById(R.id.in_ll);
+        mLight_dots = (ImageView) findViewById(R.id.iv_light_dots);
+        mBtn_next = (Button) findViewById(R.id.bt_next);
+    }
+
+    private void initData() {
+        mViewList = new ArrayList<View>();
+        LayoutInflater lf = getLayoutInflater().from(startupView.this);
+        View view1 = lf.inflate(R.layout.viewpager1, null);
+        View view2 = lf.inflate(R.layout.viewpager2, null);
+        View view3 = lf.inflate(R.layout.viewpager3, null);
+        mViewList.add(view1);
+        mViewList.add(view2);
+        mViewList.add(view3);
+    }
+
+    private void addDots() {
+        mOne_dot = new ImageView(this);
+        mOne_dot.setImageResource(R.drawable.gray_dot);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 0, 40, 0);
+        mIn_ll.addView(mOne_dot, layoutParams);
+        mTwo_dot = new ImageView(this);
+        mTwo_dot.setImageResource(R.drawable.gray_dot);
+        mIn_ll.addView(mTwo_dot, layoutParams);
+        mThree_dot = new ImageView(this);
+        mThree_dot.setImageResource(R.drawable.gray_dot);
+        mIn_ll.addView(mThree_dot, layoutParams);
+        setClickListener();
 
     }
 
@@ -97,22 +131,6 @@ public class startupView extends AppCompatActivity {
         });
     }
 
-    private void addDots() {
-        mOne_dot = new ImageView(this);
-        mOne_dot.setImageResource(R.drawable.gray_dot);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 0, 40, 0);
-        mIn_ll.addView(mOne_dot, layoutParams);
-        mTwo_dot = new ImageView(this);
-        mTwo_dot.setImageResource(R.drawable.gray_dot);
-        mIn_ll.addView(mTwo_dot, layoutParams);
-        mThree_dot = new ImageView(this);
-        mThree_dot.setImageResource(R.drawable.gray_dot);
-        mIn_ll.addView(mThree_dot, layoutParams);
-        setClickListener();
-
-    }
-
     private void setClickListener() {
         mOne_dot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,24 +151,4 @@ public class startupView extends AppCompatActivity {
             }
         });
     }
-
-
-    private void initData() {
-        mViewList = new ArrayList<View>();
-        LayoutInflater lf = getLayoutInflater().from(startupView.this);
-        View view1 = lf.inflate(R.layout.viewpager1, null);
-        View view2 = lf.inflate(R.layout.viewpager2, null);
-        View view3 = lf.inflate(R.layout.viewpager3, null);
-        mViewList.add(view1);
-        mViewList.add(view2);
-        mViewList.add(view3);
-    }
-
-    private void initView() {
-        mIn_vp = (ViewPager) findViewById(R.id.in_viewpager);
-        mIn_ll = (LinearLayout) findViewById(R.id.in_ll);
-        mLight_dots = (ImageView) findViewById(R.id.iv_light_dots);
-        mBtn_next = (Button) findViewById(R.id.bt_next);
-    }
-
 }
