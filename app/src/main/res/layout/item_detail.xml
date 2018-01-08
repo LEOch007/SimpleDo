@@ -3,16 +3,14 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    >
+    android:padding="10dp">
 
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:id="@+id/itemicon"
             android:src="@mipmap/ic_launcher"
-            android:padding="15px"
-            />
+            android:padding="15px" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -21,24 +19,20 @@
 
                 <TextView
                     android:id="@+id/textconent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="240dp"
-                    android:height="40dp"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:text="content"
                     android:textColor="@android:color/background_dark"
                     android:textSize="20sp"
-                    android:maxLines="1"
-                    />
+                    android:lines="1"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/textlabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="240dp"
-                    android:height="30dp"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
                     android:paddingLeft="10dp"
                     android:text="time"
                     android:textSize="15sp"
@@ -54,12 +48,9 @@
                     android:id="@+id/imageView"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:src="@mipmap/clock_icon" />
-
-
         </LinearLayout>
-
 
 </LinearLayout>

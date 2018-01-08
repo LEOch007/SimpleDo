@@ -39,6 +39,7 @@ public class countdown extends AppCompatActivity {
         // 界面控件
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.countdown_listview);
         final ProgressBar progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
+        final TextView noCountDown = (TextView) findViewById(R.id.noCountDown);
         mdrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         actionBar = getSupportActionBar();
@@ -105,12 +106,20 @@ public class countdown extends AppCompatActivity {
         Date Dtoday = new Date();
         Ctoday.setTime(Dtoday);
 
+        List<String> dateList = new ArrayList<>();
         for (cursor.moveToFirst();!(cursor.isAfterLast());cursor.moveToNext()) {
             String content = cursor.getString(contentIndex);
             String startyear = cursor.getString(startyearIndex);
             String startmonth = cursor.getString(startmonthIndex);
             String startday = cursor.getString(startdayIndex);
-            //
+
+            String paran_date = startyear + "-" + startmonth + "-" +  startday;
+            if(dateList.contains(paran_date)){
+                continue;
+            }else {
+                dateList.add(paran_date);
+            }
+
             Calendar date = Calendar.getInstance();
             date.set(Integer.parseInt(startyear),Integer.parseInt(startmonth) - 1,Integer.parseInt(startday));
 
@@ -123,9 +132,12 @@ public class countdown extends AppCompatActivity {
             // 换算后得到天数
             int day = (int) (val / (1000 * 60 * 60 * 24));
 
-            String paran_date = startyear + "-" + startmonth + "-" +  startday;
             countdown_item c_item = new countdown_item(content,String.valueOf(day),paran_date);
             countdownList.add(c_item);
+        }
+
+        if(!countdownList.isEmpty()){
+            noCountDown.setVisibility(View.GONE);
         }
     }
 
