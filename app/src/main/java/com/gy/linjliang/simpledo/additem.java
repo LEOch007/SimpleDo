@@ -77,7 +77,7 @@ public class additem extends Activity {
                         starttimwshow.setText(time);
                     }
                 });
-                mDateChooseDialog.setDateDialogTitle("choose_time");
+                mDateChooseDialog.setDateDialogTitle("选择开始时间");
                 mDateChooseDialog.showDateChooseDialog();
             }
         });
@@ -91,7 +91,7 @@ public class additem extends Activity {
                         finishtimwshow.setText(time);
                     }
                 });
-                mDateChooseDialog.setDateDialogTitle("choose_time");
+                mDateChooseDialog.setDateDialogTitle("选择结束时间");
                 mDateChooseDialog.showDateChooseDialog();
             }
         });

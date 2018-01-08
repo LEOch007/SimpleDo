@@ -48,7 +48,7 @@ public class Madapter extends RecyclerView.Adapter<Madapter.ViewHolder>{
     public void onBindViewHolder(final ViewHolder holder, int position) {
         item it=mitem.get(position);
         holder.mcontent.setText(it.getContent());
-        String mtime=it.getFinishyear()+"-"+it.getFinishmonth()+"-"+it.getFinishday()+" "+it.getFinishhour()+"时: "+it.getFinishmin()+"分";
+        String mtime=it.getFinishyear()+"年"+it.getFinishmonth()+"月"+it.getFinishday()+"日 "+it.getFinishhour()+"时: "+it.getFinishmin()+"分";
         holder.time.setText(mtime);
         switch(it.getLabel()){
             case "working":
@@ -64,10 +64,10 @@ public class Madapter extends RecyclerView.Adapter<Madapter.ViewHolder>{
 
         switch(it.getIsfinish()){
             case "0":
-                holder.isfinish.setImageResource(R.mipmap.clock_icon);
+                holder.isfinish.setImageResource(R.drawable.gouxuanno);
                 break;
             case "1":
-                holder.isfinish.setImageResource(R.mipmap.tablefinish);
+                holder.isfinish.setImageResource(R.drawable.gouxuanok);
                 break;
         }
 

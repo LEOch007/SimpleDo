@@ -105,10 +105,70 @@ public class UpdateActivity extends Activity {
                 if(isfinish.equals("0")){
                     isfinish="1";
                     finishicon.setImageResource(R.mipmap.finish2);
+
                 }else{
                     isfinish="0";
                     finishicon.setImageResource(R.mipmap.finish1);
+
                 }
+
+                content=exitcontent.getText().toString();
+                boolean flag=true;
+                final String timestart=starttiemshow.getText().toString();
+                final String timefinish=finishtimeshow.getText().toString();
+
+                if(content.equals("")){
+                    Toast.makeText(UpdateActivity.this,"内容不能为空",Toast.LENGTH_SHORT).show();
+                    flag=false;
+                }else{
+                    if(timestart.equals("")){
+                        Toast.makeText(UpdateActivity.this,"开始时间不能为空",Toast.LENGTH_SHORT).show();
+                        flag=false;
+                    }else{
+
+                        String s1[]=timestart.split(" ");
+                        String s2[]=s1[0].split("-");
+                        startyear=s2[0];
+                        if(s2[1].length()<2){startmonth="0"+s2[1];}else{startmonth=s2[1];}
+                        if(s2[2].length()<2){startday="0"+s2[2];}else{startday=s2[2];}
+
+                        String s3[]=s1[1].split(":");
+                        String s4=s3[0].substring(0,s3[0].length()-1);
+                        String s5=s3[1].substring(0,s3[1].length()-1);
+                        if(s4.length()<2){starthour="0"+s4;}else{starthour=s4;}
+                        if(s5.length()<2){startmin="0"+s5;}else{startmin=s5;}
+
+                    }
+                    if(timefinish.equals("")){
+                        Toast.makeText(UpdateActivity.this,"结束时间不能为空",Toast.LENGTH_SHORT).show();
+                        flag=false;
+                    }else{
+
+                        String s11[]=timefinish.split(" ");
+                        String s22[]=s11[0].split("-");
+                        finishyear=s22[0];
+                        if(s22[1].length()<2){finishmonth="0"+s22[1];}else{finishmonth=s22[1];}
+                        if(s22[2].length()<2){finishday="0"+s22[2];}else{finishday=s22[2];}
+
+                        String s33[]=s11[1].split(":");
+                        String s44=s33[0].substring(0,s33[0].length()-1);
+                        String s55=s33[1].substring(0,s33[1].length()-1);
+                        if(s44.length()<2){finishhour="0"+s44;}else{finishhour=s44;}
+                        if(s55.length()<2){finishmin="0"+s55;}else{finishmin=s55;}
+                        //Toast.makeText(additem.this,finishyear+" "+finishmonth+" "+finishday+" "+finishhour+" "+finishmin,Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                if(flag==true){
+                    final item item_temp=new item(id,label,content,startyear,startmonth,startday,starthour,startmin,
+                            finishyear,finishmonth,finishday,finishhour,finishmin);
+                    item_temp.setIsfinish(isfinish);item_temp.setImgpath(imgpath);item_temp.setVideopath(videopath);
+                    myDatabase.update(item_temp);
+                    finish();
+                }
+
+
             }
         });
 
@@ -122,7 +182,7 @@ public class UpdateActivity extends Activity {
                         starttiemshow.setText(time);
                     }
                 });
-                mDateChooseDialog.setDateDialogTitle("choose_time");
+                mDateChooseDialog.setDateDialogTitle("选择开始时间");
                 mDateChooseDialog.showDateChooseDialog();
             }
         });
@@ -136,7 +196,35 @@ public class UpdateActivity extends Activity {
                         finishtimeshow.setText(time);
                     }
                 });
-                mDateChooseDialog.setDateDialogTitle("choose_time");
+                mDateChooseDialog.setDateDialogTitle("选择结束时间");
+                mDateChooseDialog.showDateChooseDialog();
+            }
+        });
+
+        starttiemshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateChooseWheelViewDialog mDateChooseDialog = new DateChooseWheelViewDialog(UpdateActivity.this, new DateChooseWheelViewDialog.DateChooseInterface(){
+                    @Override
+                    public void getDateTime(String time, boolean longTimeChecked) {
+                        starttiemshow.setText(time);
+                    }
+                });
+                mDateChooseDialog.setDateDialogTitle("选择开始时间");
+                mDateChooseDialog.showDateChooseDialog();
+            }
+        });
+
+        finishtimeshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateChooseWheelViewDialog mDateChooseDialog = new DateChooseWheelViewDialog(UpdateActivity.this, new DateChooseWheelViewDialog.DateChooseInterface(){
+                    @Override
+                    public void getDateTime(String time, boolean longTimeChecked) {
+                        finishtimeshow.setText(time);
+                    }
+                });
+                mDateChooseDialog.setDateDialogTitle("选择结束时间");
                 mDateChooseDialog.showDateChooseDialog();
             }
         });

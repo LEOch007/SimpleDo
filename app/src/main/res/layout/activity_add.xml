@@ -34,7 +34,7 @@
                 android:layout_height="50dp"
                 android:checked="true"
                 android:gravity="center"
-                android:text="working"
+                android:text="工作"
                 android:textSize="15dp"
                 />
 
@@ -42,13 +42,13 @@
                 android:id="@+id/labelstudying"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="studying" />
+                android:text="学习" />
 
             <RadioButton
                 android:id="@+id/labelliving"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="living" />
+                android:text="生活" />
         </RadioGroup>
 
     </LinearLayout>

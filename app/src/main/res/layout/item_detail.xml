@@ -29,7 +29,9 @@
                     android:paddingTop="5dp"
                     android:text="content"
                     android:textColor="@android:color/background_dark"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:maxLines="1"
+                    />
 
                 <TextView
                     android:id="@+id/textlabel"
@@ -39,7 +41,8 @@
                     android:height="30dp"
                     android:paddingLeft="10dp"
                     android:text="time"
-                    android:textSize="20sp" />
+                    android:textSize="15sp"
+                    />
 
         </LinearLayout>
 

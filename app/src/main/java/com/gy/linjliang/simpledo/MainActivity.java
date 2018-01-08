@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -23,11 +24,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.content.Context;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import android.content.SharedPreferences;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
@@ -39,10 +45,13 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mdrawerLayout;
     private NavigationView navigationView;
     private ActionBar actionBar;
-    private ImageButton buttonadd;
+    private FloatingActionButton buttonadd;
     private Madapter madapter;
     private RecyclerView recyclerView;
-
+    private String curyear;
+    private String curmonth;
+    private String curday;
+    private TextView showcurrenttime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
+        //data();
 
         show(myDatabase);
-
         buttonadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,13 +131,15 @@ public class MainActivity extends AppCompatActivity {
         mdrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
         navigationView=(NavigationView)findViewById(R.id.nav_view);
         actionBar=getSupportActionBar();
-        buttonadd=(ImageButton) findViewById(R.id.buttonaddone);
+        buttonadd=(FloatingActionButton) findViewById(R.id.buttonaddone);
         recyclerView=(RecyclerView)findViewById(R.id.recyclerview);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
+        showcurrenttime=(TextView) findViewById(R.id.showcurrenttime);
     }
 
     public void show(final MyDatabase myDatabase){
+        data();
         list=new ArrayList<item>();
         SQLiteDatabase db=myDatabase.getWritableDatabase();
         Cursor cursor=db.query("item",null,null,null,null,null,null);
@@ -151,10 +162,12 @@ public class MainActivity extends AppCompatActivity {
                 String imagepath=cursor.getString(cursor.getColumnIndex("imgpath"));
                 String videopath=cursor.getString(cursor.getColumnIndex("videopath"));
 
-                item temp_item=new item(id,label,content,startyear,startmonth,startday,starthour,startmin,
-                        finishyear,finishmonth,finishday,finishhour,finishmin);
-                temp_item.setImgpath(imagepath);temp_item.setVideopath(videopath);temp_item.setIsfinish(isfinish);
-                list.add(temp_item);
+                if(curyear.equals(startyear)&&curmonth.equals(startmonth)&&curday.equals(startday)){
+                    item temp_item=new item(id,label,content,startyear,startmonth,startday,starthour,startmin,
+                            finishyear,finishmonth,finishday,finishhour,finishmin);
+                    temp_item.setImgpath(imagepath);temp_item.setVideopath(videopath);temp_item.setIsfinish(isfinish);
+                    list.add(temp_item);
+                }
             }while(cursor.moveToNext());
 
         }
@@ -208,5 +221,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         navigationView.setCheckedItem(R.id.activityday);
         super.onRestart();
+    }
+
+    public void data(){
+        final String temp_i=(String) getIntent().getSerializableExtra("date");
+        if(temp_i==null){
+            SimpleDateFormat formatter=new SimpleDateFormat("yyyy MM dd HH mm ss");
+            Date curdate= new Date(System.currentTimeMillis());
+            String str=formatter.format(curdate);
+            String s[]=str.split(" ");
+            curyear=s[0];
+            curmonth=s[1];
+            curday=s[2];
+            showcurrenttime.setText(curyear+"年"+curmonth+"月"+curday+"日");
+
+        }else{
+            String s[]=temp_i.split("-");
+            curyear=s[0];
+            curmonth=s[1];
+            curday=s[2];
+
+        }
+
     }
 }
