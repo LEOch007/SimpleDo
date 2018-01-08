@@ -11,6 +11,12 @@ public class itemdate implements Serializable {
     private String datecon;
     private String datenum;
 
+    public itemdate(){
+        this.date = "2018年1月8日";
+        this.datecon = "完成安卓proj\n好好学习\n听音乐";
+        this.datenum = "5";
+    }
+
     public itemdate(String sdate,String sdatecon,String sdatenum){
         this.date = sdate;
         this.datecon = sdatecon;
