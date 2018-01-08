@@ -76,13 +76,13 @@ public class UpdateActivity extends Activity {
 
 
         switch(label){
-            case "working":
+            case "工作":
                 buttonworking.setChecked(true);
                 break;
-            case "studying":
+            case "学习":
                 buttonstudying.setChecked(true);
                 break;
-            case "living":
+            case "生活":
                 buttonliving.setChecked(true);
                 break;
         }

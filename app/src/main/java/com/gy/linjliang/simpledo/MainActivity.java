@@ -73,16 +73,16 @@ public class MainActivity extends AppCompatActivity {
 
         //data();
 
-        myDatabase.insert(new item("101","working","完成安卓proj","2018","01","06","00","00","2018","01","08","22","00"));
-        myDatabase.insert(new item("102","studying","看书","2018","01","10","00","00","2018","1","14","22","00"));
-        myDatabase.insert(new item("103","living","购物","2017","12","06","00","00","2017","12","08","12","00"));
-        myDatabase.insert(new item("104","living","聚餐","2017","12","06","08","00","2017","12","08","11","30"));
-        myDatabase.insert(new item("105","living","看电影","2017","12","06","22","00","2017","12","06","23","40"));
-        myDatabase.insert(new item("106","living","拜访好友","2018","01","06","00","00","2018","01","08","12","00"));
-        myDatabase.insert(new item("107","working","写报告","2017","12","06","08","00","2017","12","06","09","00"));
-        myDatabase.insert(new item("108","studying","复习AI","2018","01","10","09","00","2018","1","10","10","00"));
-        myDatabase.insert(new item("109","studying","看Web课件","2018","01","10","10","00","2018","1","10","11","30"));
-        myDatabase.insert(new item("110","living","听音乐","2018","01","10","12","00","2018","1","10","12","20"));
+//        myDatabase.insert(new item("101","working","完成安卓proj","2018","01","06","00","00","2018","01","08","22","00"));
+//        myDatabase.insert(new item("102","studying","看书","2018","01","10","00","00","2018","1","14","22","00"));
+//        myDatabase.insert(new item("103","living","购物","2017","12","06","00","00","2017","12","08","12","00"));
+//        myDatabase.insert(new item("104","living","聚餐","2017","12","06","08","00","2017","12","08","11","30"));
+//        myDatabase.insert(new item("105","living","看电影","2017","12","06","22","00","2017","12","06","23","40"));
+//        myDatabase.insert(new item("106","living","拜访好友","2018","01","06","00","00","2018","01","08","12","00"));
+//        myDatabase.insert(new item("107","working","写报告","2017","12","06","08","00","2017","12","06","09","00"));
+//        myDatabase.insert(new item("108","studying","复习AI","2018","01","10","09","00","2018","1","10","10","00"));
+//        myDatabase.insert(new item("109","studying","看Web课件","2018","01","10","10","00","2018","1","10","11","30"));
+//        myDatabase.insert(new item("110","living","听音乐","2018","01","10","12","00","2018","1","10","12","20"));
         show(myDatabase);
         buttonadd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
             curyear=s[0];
             curmonth=s[1];
             curday=s[2];
-
+            showcurrenttime.setText(curyear+"年"+curmonth+"月"+curday+"日");
         }
 
     }

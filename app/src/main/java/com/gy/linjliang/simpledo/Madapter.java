@@ -51,13 +51,13 @@ public class Madapter extends RecyclerView.Adapter<Madapter.ViewHolder>{
         String mtime=it.getFinishyear()+"年"+it.getFinishmonth()+"月"+it.getFinishday()+"日 "+it.getFinishhour()+"时: "+it.getFinishmin()+"分";
         holder.time.setText(mtime);
         switch(it.getLabel()){
-            case "working":
+            case "工作":
                 holder.icon.setImageResource(R.drawable.working);
                 break;
-            case "studying":
+            case "学习":
                 holder.icon.setImageResource(R.drawable.studying);
                 break;
-            case "living":
+            case "生活":
                 holder.icon.setImageResource(R.drawable.shopping);
                 break;
         }
