@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroumd"
+    android:background="@mipmap/bg_green"
     >
 
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@mipmap/finish1"
+        android:src="@drawable/gouxuanno"
         android:id="@+id/finishicon"
         android:layout_gravity="end"
         android:layout_marginTop="20dp"
@@ -17,18 +17,18 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center"
         >
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="50dp"
-            android:gravity="center"
-            android:paddingLeft="10sp"
-            android:text="选择标签:"
+            android:gravity="end|center"
+            android:paddingLeft="5dp"
+            android:text="标签:"
             android:textColor="@android:color/background_dark"
-            android:textSize="20dp" />
+            android:textSize="22sp" />
 
         <RadioGroup
             android:layout_width="250dp"
@@ -42,6 +42,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/updatelabelworking"
                 android:text="工作"
+                android:textSize="22sp"
                 android:checked="true"
                 android:gravity="center"
                 />
@@ -50,6 +51,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/updatelabelstudying"
                 android:text="学习"
+                android:textSize="22sp"
                 android:gravity="center"
                 />
 
@@ -58,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center"
+                android:textSize="22sp"
                 android:text="生活" />
         </RadioGroup>
 
@@ -66,41 +69,17 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:text="填写内容:"
-            android:textColor="@android:color/background_dark"
-            android:textSize="20dp" />
-
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/updatecontnet"
-            />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="center">
 
         <TextView
             android:id="@+id/updatestarttime"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="50dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="5dp"
             android:text="开始日期:"
             android:textColor="@android:color/background_dark"
-            android:textSize="20dp"
-            android:gravity="center"
+            android:textSize="22sp"
+            android:gravity="end|center"
             />
 
         <TextView
@@ -109,7 +88,7 @@
             android:layout_height="50dp"
             android:paddingLeft="10dp"
             android:text=""
-            android:textSize="20dp" />
+            android:textSize="22sp"  />
 
     </LinearLayout>
 
@@ -119,13 +98,13 @@
         android:layout_gravity="center"
         >
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="50dp"
-            android:gravity="center"
-            android:paddingLeft="10dp"
+            android:gravity="end|center"
+            android:paddingLeft="5dp"
             android:text="结束日期:"
             android:textColor="@android:color/background_dark"
-            android:textSize="20dp"
+            android:textSize="22sp"
             android:id="@+id/updatefinishtime"
             />
 
@@ -134,19 +113,45 @@
             android:layout_height="50dp"
             android:paddingLeft="10dp"
             android:text=""
-            android:textSize="20dp"
+            android:textSize="22sp"
             android:id="@+id/updatefinishtimeshow"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:gravity="end|center"
+            android:paddingLeft="5dp"
+            android:text="任务内容:"
+            android:textColor="@android:color/background_dark"
+            android:textSize="22sp"  />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:id="@+id/updatecontnet"
             />
     </LinearLayout>
 
     <Button
         android:id="@+id/updatesubmit"
-        android:layout_width="wrap_content"
+        android:background="@drawable/btnshape"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:width="100dp"
-        android:text="update"
         android:layout_marginTop="20dp"
+        android:width="100dp"
+        android:text="更新"
+        android:textColor="@color/white"
+        android:textSize="22sp"
         />
 
 </LinearLayout>
