@@ -70,6 +70,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         String whereClause="id like ?";
         String[] whereArgs={id};
         db.delete(TABLE_NAME,whereClause,whereArgs);
+        db.close();
     }
 
     public void update(item i){

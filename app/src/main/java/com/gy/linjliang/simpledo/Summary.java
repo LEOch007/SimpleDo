@@ -1,10 +1,18 @@
 package com.gy.linjliang.simpledo;
 
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +22,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +49,8 @@ public class Summary extends AppCompatActivity {
     private String[] text_page2;
     private String[] text_page3;
     private MyDatabase myDatabase;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +58,23 @@ public class Summary extends AppCompatActivity {
         setContentView(R.layout.summary);
         initView();
         initData();
+        int permission = ContextCompat.checkSelfPermission(Summary.this,"android.permission.READ_EXTERNAL_STORAGE");
+        if(permission != PackageManager.PERMISSION_GRANTED) {
+            // 没有读取文件权限，申请权限
+            ActivityCompat.requestPermissions(Summary.this,new String[]{
+                    "android.permission.READ_EXTERNAL_STORAGE"
+            },1);
+        } else {
+            initMediaPlayer();
+            mediaPlayer.start();
+        }
+
         myDatabase = new MyDatabase(this,"Finalitem.db",null,1);
-//        myDatabase.insert(new item("10","1","这是一条今天数据1这是一条测试数据1这是一条测试数据1","2018","01","08","08","02","2018","01","11","09","02","0"));
-//        myDatabase.insert(new item("11","1","这是一条明天数据2","2018","01","09","08","02","2018","01","11","09","02","0"));
-//        myDatabase.insert(new item("12","1","这是一条昨天数据3","2018","01","07","08","02","2018","01","11","09","02","0"));
-//        myDatabase.insert(new item("13","1","22:55完成数据","2018","01","10","08","02","2018","01","11","22","55","1"));
-//        myDatabase.insert(new item("14","1","4:00完成数据","2018","01","10","08","02","2018","01","11","04","02","1"));
+        myDatabase.insert(new item("100","1","完成数据库作业","2018","01","08","08","02","2018","01","11","09","02","0"));
+        myDatabase.insert(new item("101","1","完成互联网作业","2018","01","09","08","02","2018","01","11","09","02","0"));
+        myDatabase.insert(new item("102","1","完成云计算作业","2018","01","07","08","02","2018","01","11","09","02","0"));
+        myDatabase.insert(new item("103","1","完成人工智能作业","2018","01","10","08","02","2018","01","11","22","55","1"));
+        myDatabase.insert(new item("104","1","完成安卓作业","2018","01","10","08","02","2018","01","11","04","02","1"));
 
         SQLiteDatabase db = myDatabase.getReadableDatabase();
         Cursor cursor;
@@ -197,6 +220,8 @@ public class Summary extends AppCompatActivity {
         text_page2 = new String[]{sample_text4,sample_text5,sample_text6};
         text_page3 = new String[]{sample_text7,sample_text_empty,sample_text_empty};
 
+
+
         mIn_vp.setAdapter(new ViewPagerAdapter(mViewList));
         addDots();
         moveDots();
@@ -334,4 +359,43 @@ public class Summary extends AppCompatActivity {
         text3 = (TextView) findViewById(R.id.Stext3);
     }
 
+    private void initMediaPlayer(){
+        try{
+            File file = new File(Environment.getExternalStorageDirectory(),"Inspire.mp3");
+            mediaPlayer.setDataSource(file.getPath());
+            mediaPlayer.setLooping(true);
+            mediaPlayer.prepare();
+            Log.d("MediaPlayer","preparation done!");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //检测权限申请结果，如果没有申请到权限，程序关闭。
+        switch (requestCode){
+            case 1:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    initMediaPlayer();
+                    mediaPlayer.start();
+                } else {
+                    Toast.makeText(this,"没有开启读取文件的权限，无法播放音乐",Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }

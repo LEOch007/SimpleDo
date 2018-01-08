@@ -2,11 +2,14 @@ package com.gy.linjliang.simpledo;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -70,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
 
-
         //data();
 
 //        myDatabase.insert(new item("101","working","完成安卓proj","2018","01","06","00","00","2018","01","08","22","00"));
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent i=new Intent(MainActivity.this,additem.class);
                 startActivityForResult(i,1);
             }
-        });;
+        });
 
         // 菜单栏
         if(actionBar!=null){
