@@ -58,6 +58,8 @@ public class countdown extends AppCompatActivity {
                 navigationView.setCheckedItem(id);
                 switch (id){
                     case R.id.activityday:
+                        intent = new Intent(countdown.this,Datetask.class);
+                        startActivity(intent);
                         break;
                     case R.id.activityCountdown:
                         intent = new Intent(countdown.this,countdown.class);
@@ -68,6 +70,12 @@ public class countdown extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.activitypotato:
+                        intent = new Intent(countdown.this,Workclock.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activityMain:
+                        intent = new Intent(countdown.this,MainActivity.class);
+                        startActivity(intent);
                         break;
                 }
                 mdrawerLayout.closeDrawers();
@@ -83,7 +91,7 @@ public class countdown extends AppCompatActivity {
         adapter = new MyAdapter(countdownList);
         recyclerView.setAdapter(adapter);
 
-        myDatabase = new MyDatabase(this,"Item.db",null,1);
+        myDatabase = new MyDatabase(this,"Finalitem.db",null,1);
         SQLiteDatabase db = myDatabase.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("select * from item order by startyear ASC,startmonth ASC,startday ASC",null);
@@ -115,7 +123,8 @@ public class countdown extends AppCompatActivity {
             // 换算后得到天数
             int day = (int) (val / (1000 * 60 * 60 * 24));
 
-            countdown_item c_item = new countdown_item(content,String.valueOf(day));
+            String paran_date = startyear + "-" + startmonth + "-" +  startday;
+            countdown_item c_item = new countdown_item(content,String.valueOf(day),paran_date);
             countdownList.add(c_item);
         }
     }
@@ -150,7 +159,11 @@ public class countdown extends AppCompatActivity {
             holder.item_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(countdown.this,MainActivity.class);
+                    int position = holder.getAdapterPosition();
+                    countdown_item item = countdownList.get(position);
+                    intent.putExtra("date",item.getDate());
+                    startActivity(intent);
                 }
             });
 
@@ -172,9 +185,4 @@ public class countdown extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        navigationView.setCheckedItem(R.id.activityCountdown);
-        super.onBackPressed();
-    }
 }

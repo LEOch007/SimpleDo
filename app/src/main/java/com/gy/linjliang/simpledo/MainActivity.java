@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        navigationView.setCheckedItem(R.id.activityday);
+        navigationView.setCheckedItem(R.id.activityMain);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
+        <item android:title="今日任务" android:id="@+id/activityMain"/>
         <item android:title="查看日程" android:id="@+id/activityday"/>
         <item android:title="倒计时时钟" android:id="@+id/activitypotato"/>
         <item android:title="倒数日" android:id="@+id/activityCountdown"/>
-        <item android:title="年度总结报告" android:id="@+id/activitySummary"/>
+        <item android:title="年度总结" android:id="@+id/activitySummary"/>
     </group>
 </menu>

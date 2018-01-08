@@ -44,6 +44,27 @@ public class item implements Serializable {
         videopath=null;
     }
 
+    // 重载函数，可以插入是否完成，便于测试
+    public item(String id,String label,String content,String startyear,String startmonth,String startday,String starthour,String startmin,
+                String finishyear,String finishmonth,String finishday,String finishhour,String finishmin,String isfinish){
+        this.id=id;
+        this.label=label;
+        this.content=content;
+        this.startyear=startyear;
+        this.startmonth=startmonth;
+        this.startday=startday;
+        this.starthour=starthour;
+        this.startmin=startmin;
+        this.finishyear=finishyear;
+        this.finishmonth=finishmonth;
+        this.finishday=finishday;
+        this.finishhour=finishhour;
+        this.finishmin=finishmin;
+        this.isfinish=isfinish;
+        imgpath=null;
+        videopath=null;
+    }
+
     public String getLabel(){return label;}
     public String getContent(){return content;}
 

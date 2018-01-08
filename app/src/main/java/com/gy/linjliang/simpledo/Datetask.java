@@ -1,9 +1,15 @@
 package com.gy.linjliang.simpledo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +22,62 @@ public class Datetask extends AppCompatActivity {
     private RecyclerView rview;
     private MyAdapter myAdapter;
     private List<itemdate> itemdates;
+    private DrawerLayout mdrawerLayout;
+    private NavigationView navigationView;
+    private ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datetask);
         init();
+
+
+        mdrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        actionBar = getSupportActionBar();
+
+        // 菜单栏
+        if(actionBar!=null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
+        }
+
+        navigationView.setCheckedItem(R.id.activityday);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                Intent intent;
+                navigationView.setCheckedItem(id);
+                switch (id){
+                    case R.id.activityday:
+                        intent = new Intent(Datetask.this,Datetask.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activityCountdown:
+                        intent = new Intent(Datetask.this,countdown.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activitySummary:
+                        intent = new Intent(Datetask.this,Summary.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activitypotato:
+                        intent = new Intent(Datetask.this,Workclock.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.activityMain:
+                        intent = new Intent(Datetask.this,MainActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                mdrawerLayout.closeDrawers();
+                return true;
+            }
+        });
+        // -------------------------------------------------
+
         /* -- RecyclerView -- */
         itemdates = new ArrayList<>();
         //
@@ -46,5 +103,8 @@ public class Datetask extends AppCompatActivity {
     //找到控件
     public void init(){
         rview = (RecyclerView)findViewById(R.id.rview);
+        mdrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        actionBar = getSupportActionBar();
     }
 }
